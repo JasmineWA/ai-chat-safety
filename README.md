@@ -2,9 +2,9 @@
 
 > 面向中文 LLM 对话场景的内容安全防护系统，支持输入/输出双侧检测与风险处置
 
-- **仓库地址**：https://github.com/
-- **作者**：
-- **邮箱**：
+- **仓库地址**：https://github.com/JasmineWA/ai-chat-safety
+- **作者**：JasmineWA
+- **邮箱**：wanglixia@nuaa.edu.cn
 
 ## 项目简介
 
