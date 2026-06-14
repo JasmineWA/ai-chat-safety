@@ -1,0 +1,12 @@
+{
+  "忽略规则": ["Instruction_Attack", "instruction_attack", 3],
+  "越狱": ["Instruction_Attack", "instruction_attack", 3],
+  "jailbreak": ["Instruction_Attack", "instruction_attack", 3],
+  "伤害他人": ["Social_Manipulation_And_Harmful_Guidance", "social_manipulation", 3],
+  "自杀方法": ["Social_Manipulation_And_Harmful_Guidance", "social_manipulation", 3],
+  "毒品": ["Illegal_And_Criminal_Content", "illegal_activity", 3],
+  "诈骗": ["Illegal_And_Criminal_Content", "illegal_activity", 3],
+  "去死": ["Abuse_And_Hate", "abuse_and_hate", 3],
+  "白痴": ["Abuse_And_Hate", "abuse_and_hate", 2],
+  "身份证号": ["Privacy_And_Property_Risk", "privacy_risk", 2]
+}

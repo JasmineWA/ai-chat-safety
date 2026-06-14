@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 安全对话系统</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+  </head>
+  <body>
+    <div class="layout">
+      <button id="sidebarToggle" class="sidebar-toggle" type="button">会话</button>
+      <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">SA</div>
+          <div class="brand-copy">
+            <h1>Safety Console</h1>
+            <p>输入输出双侧安全检测</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="/" class="active">安全对话</a>
+          <a href="/admin">管理后台</a>
+        </nav>
+
+        <section class="session-panel">
+          <div class="session-header">
+            <h3>会话列表</h3>
+            <button id="newChatBtn" type="button">新建对话</button>
+          </div>
+          <input id="sessionSearchInput" class="session-search" type="text" placeholder="搜索会话标题" />
+          <div id="sessionList" class="session-list"></div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <section class="page-shell">
+          <header class="topbar">
+            <div>
+              <h2>安全对话</h2>
+              <p>用户输入先经过输入检测，再调用大模型，最后进行输出检测并记录日志。</p>
+            </div>
+            <div class="badge safe">系统在线</div>
+          </header>
+
+          <section class="chat-body">
+            <div id="messages" class="messages"></div>
+            <button id="scrollBottomBtn" class="scroll-bottom-btn" type="button">回到底部</button>
+
+            <div class="composer">
+              <div class="composer-row">
+                <textarea
+                  id="messageInput"
+                  placeholder="输入消息，按 Enter 发送，Shift + Enter 换行"
+                ></textarea>
+                <button id="sendBtn" type="button">发送</button>
+              </div>
+              <div class="hint">高风险输入会被拦截；输出结果也会经过安全审查后再展示。</div>
+              <div id="errorText" class="error"></div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+  </body>
+</html>

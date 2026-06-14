@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 安全系统管理后台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">SA</div>
+          <div class="brand-copy">
+            <h1>Safety Console</h1>
+            <p>风险运营与日志审计</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="/">安全对话</a>
+          <a href="/admin" class="active">管理后台</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <section class="page-shell">
+          <header class="topbar">
+            <div>
+              <h2>管理后台</h2>
+              <p>查看风险日志、统计分布，并维护输入规则。</p>
+            </div>
+            <div class="badge safe">系统在线</div>
+          </header>
+
+          <section class="admin-grid">
+            <div class="stats-grid">
+              <article class="card stat-card">
+                <h3>日志总量</h3>
+                <strong id="totalLogs">-</strong>
+              </article>
+              <article class="card stat-card">
+                <h3>高风险</h3>
+                <strong id="highRiskCount">-</strong>
+              </article>
+              <article class="card stat-card">
+                <h3>直接拦截</h3>
+                <strong id="blockedCount">-</strong>
+              </article>
+              <article class="card stat-card">
+                <h3>替换输出</h3>
+                <strong id="replacedCount">-</strong>
+              </article>
+            </div>
+
+            <section class="card panel-card">
+              <div class="toolbar">
+                <button id="refreshStatsBtn" type="button">刷新统计</button>
+                <button id="clearLogsBtn" type="button" class="danger-btn">清空全部日志</button>
+              </div>
+              <p class="hint">统计来源于 SQLite 风险日志，适合观察系统线上表现。</p>
+            </section>
+
+            <section class="card panel-card">
+              <div class="toolbar">
+                <select id="directionFilter">
+                  <option value="">全部方向</option>
+                  <option value="input">input</option>
+                  <option value="output">output</option>
+                </select>
+                <select id="riskLevelFilter">
+                  <option value="">全部等级</option>
+                  <option value="safe">safe</option>
+                  <option value="low">low</option>
+                  <option value="medium">medium</option>
+                  <option value="high">high</option>
+                </select>
+                <button id="refreshLogsBtn" type="button">刷新日志</button>
+              </div>
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>时间</th>
+                      <th>方向</th>
+                      <th>等级</th>
+                      <th>类别</th>
+                      <th>动作</th>
+                      <th>分数</th>
+                      <th>内容摘要</th>
+                    </tr>
+                  </thead>
+                  <tbody id="logsBody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="card panel-card">
+              <div class="toolbar">
+                <button id="refreshRulesBtn" type="button">刷新规则</button>
+              </div>
+
+              <h3>输入规则</h3>
+              <div class="table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>规则 ID</th>
+                      <th>类别</th>
+                      <th>子类</th>
+                      <th>等级</th>
+                      <th>动作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inputRulesBody"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+  </body>
+</html>

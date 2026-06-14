@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# 本地数据库和日志
+*.db
+logs/
+
+# 训练产物和大模型
+FineTuning/models/
+FineTuning/datafiles/
+
+# 二进制文档，按需选择
+*.pptx
+*.docx
+
+
+data/*
+!data/samples/
+!data/samples/**

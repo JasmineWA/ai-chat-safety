@@ -1,0 +1,57 @@
+[
+  {
+    "rule_id": "SP_INJ_01",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(忽略|无视|忘记).*(之前|以上|系统|规则|设定|限制)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_INJ_02",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(系统提示|system prompt|初始指令|隐藏指令|提示词).*?(泄露|输出|显示|告诉我)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_CRIME_01",
+    "category": "Illegal_And_Criminal_Content",
+    "subcategory": "illegal_activity",
+    "pattern": "(制作|合成|购买|贩卖).*(毒品|冰毒|海洛因|枪支|弹药|炸药)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_PRIV_01",
+    "category": "Privacy_And_Property_Risk",
+    "subcategory": "privacy_risk",
+    "pattern": "(身份证|银行卡|手机号|家庭住址).*(查询|泄露|提供|告诉我)",
+    "level": "medium",
+    "action": "mask",
+    "score": 3,
+    "template_key": "privacy",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_FRAUD_01",
+    "category": "Social_Manipulation_And_Harmful_Guidance",
+    "subcategory": "social_manipulation",
+    "pattern": "(教我|告诉我|怎么).*(骗|诈骗|套路|杀猪盘)",
+    "level": "high",
+    "action": "block",
+    "score": 4,
+    "template_key": "fraud",
+    "is_keyword": 0
+  }
+]

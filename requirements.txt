@@ -1,0 +1,5 @@
+flask>=2.0
+openai>=1.0
+onnxruntime>=1.15.0
+numpy>=1.24
+transformers>=4.30.0
