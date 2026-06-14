@@ -18,3 +18,10 @@ FineTuning/datafiles/
 data/*
 !data/samples/
 !data/samples/**
+!data/safety_prompts_eval_report.json
+!data/output_pku_zh_eval_report.json
+!data/risk_keywords.json
+!data/rule_category_map.json
+!data/rules_input.json
+!data/safety_templates.json
+!data/semantic_examples.json

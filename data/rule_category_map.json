@@ -1,0 +1,17 @@
+{
+  "SP_INJ_01": "Instruction_Attack",
+  "SP_INJ_02": "Instruction_Attack",
+  "SP_INJ_03": "Instruction_Attack",
+  "SP_INJ_04": "Instruction_Attack",
+  "SP_SOC_01": "Social_Manipulation_And_Harmful_Guidance",
+  "SP_SOC_02": "Social_Manipulation_And_Harmful_Guidance",
+  "SP_ILL_01": "Illegal_And_Criminal_Content",
+  "SP_ILL_02": "Illegal_And_Criminal_Content",
+  "SP_ABUSE_01": "Abuse_And_Hate",
+  "SP_ABUSE_02": "Abuse_And_Hate",
+  "SP_PRIV_01": "Privacy_And_Property_Risk",
+  "SP_PRIV_02": "Privacy_And_Property_Risk",
+  "SP_PRIV_03": "Privacy_And_Property_Risk",
+  "SP_MENTAL_01": "Mental_Health_Risk",
+  "SP_MENTAL_02": "Mental_Health_Risk"
+}

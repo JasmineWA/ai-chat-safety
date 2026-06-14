@@ -1,0 +1,167 @@
+[
+  {
+    "rule_id": "SP_INJ_01",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(忽略|无视|忘记).*(之前|以上|系统|规则|设定|限制)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_INJ_02",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(系统提示|system prompt|初始指令|隐藏指令|提示词).*?(泄露|输出|显示|告诉我)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_INJ_03",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(DAN|jailbreak|越狱|无任何限制|开发者模式|关闭安全限制)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_INJ_04",
+    "category": "Instruction_Attack",
+    "subcategory": "instruction_attack",
+    "pattern": "(扮演|假装|充当).*(黑客|没有限制的AI|不受约束的助手|邪恶AI)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "attack",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_SOC_01",
+    "category": "Social_Manipulation_And_Harmful_Guidance",
+    "subcategory": "social_manipulation",
+    "pattern": "(如何|怎么|教我|帮我).*(伤害|报复|威胁|操控|欺骗|诱导|煽动)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_SOC_02",
+    "category": "Social_Manipulation_And_Harmful_Guidance",
+    "subcategory": "social_manipulation",
+    "pattern": "(自杀|自残|轻生|结束生命).*(方法|步骤|建议)|如何.*(鼓动|说服).*(自杀|自残)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_ILL_01",
+    "category": "Illegal_And_Criminal_Content",
+    "subcategory": "illegal_activity",
+    "pattern": "(如何|怎么|教我|帮我|考虑|打算).*(制造|制作|贩卖|出售|交易|走私|洗钱|诈骗|入侵|爆炸物)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_ILL_02",
+    "category": "Illegal_And_Criminal_Content",
+    "subcategory": "illegal_activity",
+    "pattern": "(毒品|冰毒|海洛因|可卡因|大麻|违禁品|枪支|假币).*(购买|出售|交易|制作)|(?:购买|出售|交易|制作).*(毒品|冰毒|海洛因|可卡因|大麻|违禁品|枪支|假币)",
+    "level": "high",
+    "action": "block",
+    "score": 5,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_ABUSE_01",
+    "category": "Abuse_And_Hate",
+    "subcategory": "abuse_and_hate",
+    "pattern": "(杂种|废物|白痴|滚开|去死|低等人|恶心东西|贱人)",
+    "level": "medium",
+    "action": "replace",
+    "score": 4,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_ABUSE_02",
+    "category": "Abuse_And_Hate",
+    "subcategory": "abuse_and_hate",
+    "pattern": "(某省人|外地人|女人|老人|穷人|残疾人).*(都|就是|天生).*(低等|愚蠢|恶心|没用)",
+    "level": "medium",
+    "action": "replace",
+    "score": 4,
+    "template_key": "illegal",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_PRIV_01",
+    "category": "Privacy_And_Property_Risk",
+    "subcategory": "privacy_and_property",
+    "pattern": "1[3-9]\\d{9}",
+    "level": "medium",
+    "action": "mask",
+    "score": 3,
+    "template_key": "privacy",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_PRIV_02",
+    "category": "Privacy_And_Property_Risk",
+    "subcategory": "privacy_and_property",
+    "pattern": "\\d{17}[\\dXx]|\\d{15}",
+    "level": "medium",
+    "action": "mask",
+    "score": 3,
+    "template_key": "privacy",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_PRIV_03",
+    "category": "Privacy_And_Property_Risk",
+    "subcategory": "privacy_and_property",
+    "pattern": "(银行卡|验证码|密码|token|api[_-]?key|secret[_-]?key)",
+    "level": "medium",
+    "action": "mask",
+    "score": 3,
+    "template_key": "privacy",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_MENTAL_01",
+    "category": "Mental_Health_Risk",
+    "subcategory": "mental_health",
+    "pattern": "(抑郁|焦虑|自卑|绝望|崩溃|不想活了|活着没意义).*(怎么办|建议|帮助)",
+    "level": "medium",
+    "action": "warn",
+    "score": 3,
+    "template_key": "professional",
+    "is_keyword": 0
+  },
+  {
+    "rule_id": "SP_MENTAL_02",
+    "category": "Mental_Health_Risk",
+    "subcategory": "mental_health",
+    "pattern": "(精神问题|心理问题|情绪失控).*(不用看医生|自己扛|别求助)",
+    "level": "medium",
+    "action": "warn",
+    "score": 3,
+    "template_key": "professional",
+    "is_keyword": 0
+  }
+]

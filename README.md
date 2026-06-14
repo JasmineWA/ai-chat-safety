@@ -144,10 +144,9 @@ python FineTuning/build_output_pku_saferlhf_dataset.py   # 构建输出侧数据
 ```
 data/
 ├── samples/                          # ✅ 小部分数据示例（已提交到 Git 仓库）
-│   ├── sample_rules_input.json       #    输入检测规则示例
-│   ├── sample_risk_keywords.json     #    风险关键词示例
-│   ├── sample_safety_templates.json  #    安全替换模板
-│   ├── sample_semantic_examples.json #    语义样例示例
+│   ├── demo_test_cases.json          #    演示输入示例 
+│   ├── sample_safety_prompts_input.json#    输入侧数据集示例
+│   ├── sample_pku_saferlhf_output.json #    输出侧数据集示例
 │   ├── sample_label_config_input.json#    输入侧标签配置
 │   └── sample_label_config_output.json#   输出侧标签配置
 ├── rules_input.json                  # 输入检测规则（完整版）
@@ -220,8 +219,8 @@ ai-chat-safety/
 │   ├── datafiles/                  # 训练/评测数据集（不提交）
 │   └── models/                     # 模型文件
 │       ├── chinese-roberta-wwm-ext/          # 底模（不提交）
-│       ├── risk_classifier_input_safety_prompts/  # 输入侧分类模型
-│       └── risk_classifier_output_pku_zh/    # 输出侧二分类模型
+│       ├── risk_classifier_input_safety_prompts/  # 输入侧分类模型（不提交）
+│       └── risk_classifier_output_pku_zh/    # 输出侧二分类模型（不提交）
 │
 ├── templates/                  # Flask HTML 模板
 │   ├── chat.html               #   聊天页面
