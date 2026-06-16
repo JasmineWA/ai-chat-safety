@@ -56,6 +56,16 @@ pip install -r requirements.txt
 pip install -r FineTuning/requirements-finetune.txt
 ```
 
+## FineTuning 资源说明
+
+`FineTuning/datafiles/` 和 `FineTuning/models/` 中包含体积较大的训练数据与模型文件，不适合直接放入 GitHub 仓库。GitHub 仓库只保留训练、导出和数据构建脚本；大文件请单独上传到 Hugging Face Hub。
+
+- GitHub 代码仓库: [JasmineWA/ai-chat-safety](https://github.com/JasmineWA/ai-chat-safety)
+- Hugging Face 资源仓库: [jasminewang427/ai-chat-safety](https://huggingface.co/jasminewang427/ai-chat-safety)
+- 当前已上传到 Hugging Face 的主要内容:`FineTuning/datafiles/`、`FineTuning/models/`
+
+程序运行时默认只会从项目根目录下的 `FineTuning/datafiles/` 和 `FineTuning/models/` 读取资源，不会直接从 `hf/FineTuning/` 读取。因此拉取 GitHub 仓库后，请把 Hugging Face 中的资源恢复到项目内同名目录。
+
 运行期 `requirements.txt` 内容：
 ```
 flask>=2.0
@@ -114,6 +124,8 @@ $env:DEEPSEEK_MODEL="deepseek-chat"
 | Safety-Prompts（输入侧） | [THUDM/Safety-Prompts](https://huggingface.co/datasets/thu-coai/Safety-Prompts) | ~73MB（训练集）+ ~13MB（验证集） | JSON/JSONL | 输入侧 7 类安全分类数据 |
 | PKU-SafeRLHF（输出侧） | [PKU-Alignment/PKU-SafeRLHF](https://huggingface.co/datasets/PKU-Alignment/PKU-SafeRLHF) | ~163MB（训练集）+ ~14MB（验证集） | JSON/JSONL | 输出侧 safe/unsafe 二分类数据 |
 | 中文 RoBERTa 底模 | [hfl/chinese-roberta-wwm-ext](https://huggingface.co/hfl/chinese-roberta-wwm-ext) | ~412MB | PyTorch | 微调基础模型 |
+| 处理后输入侧数据集 | [jasminewang427/ai-chat-safety](https://huggingface.co/jasminewang427/ai-chat-safety) | ~69.3MB（训练集）+ ~12.1MB（验证集） | JSON/JSONL | 输入侧 7 类安全分类数据 |
+| 处理后输出侧数据集 | [jasminewang427/ai-chat-safety](https://huggingface.co/jasminewang427/ai-chat-safety) | ~155MB（训练集）+ ~13.6MB（验证集） | JSON/JSONL | 输出侧 safe/unsafe 二分类数据 |
 
 > **体积较大的数据集不纳入 Git 仓库**，请通过外部链接下载后放置到指定目录。
 >
@@ -129,15 +141,22 @@ $env:DEEPSEEK_MODEL="deepseek-chat"
 ### 数据集下载与放置
 
 ```bash
-# 1. 安装 Git LFS（用于下载大模型权重文件）
+# 1. 安装 Git LFS（用于下载 Hugging Face 上的大文件）
 git lfs install
 
-# 2. 克隆底模（可选，仅训练时需要）
+# 2. 临时克隆 Hugging Face 资源仓库
+git clone https://huggingface.co/jasminewang427/ai-chat-safety temp_hf_repo
+
+# 3. 将其中的资源放回项目默认目录
+# temp_hf_repo/FineTuning/datafiles  ->  FineTuning/datafiles
+# temp_hf_repo/FineTuning/models     ->  FineTuning/models
+
+# 4. 如果只想单独补齐底模，也可以下载到默认位置
 git clone https://huggingface.co/hfl/chinese-roberta-wwm-ext FineTuning/models/chinese-roberta-wwm-ext
 
-# 3. 数据集通过训练脚本自动构建
-python FineTuning/build_safety_prompts_dataset.py       # 构建输入侧数据集
-python FineTuning/build_output_pku_saferlhf_dataset.py   # 构建输出侧数据集
+# 5. 如果不使用已处理好的数据集，也可以通过脚本重新构建
+python FineTuning/build_safety_prompts_dataset.py
+python FineTuning/build_output_pku_saferlhf_dataset.py
 ```
 
 数据集目录结构：
@@ -161,26 +180,65 @@ data/
 └── output_pku_zh_eval_report.json    # 输出侧评测报告
 ```
 
+运行时需要保证的 FineTuning 目录结构：
+``` 
+FineTuning/
+├── datafiles/
+│   ├── safety_prompts_train.json
+│   ├── safety_prompts_eval.json
+│   ├── output_pku_saferlhf_train_zh.json
+│   └── output_pku_saferlhf_eval_zh.json
+└── models/
+    ├── chinese-roberta-wwm-ext/
+    ├── risk_classifier_input_safety_prompts/
+    │   ├── adapter_config.json
+    │   ├── adapter_model.safetensors
+    │   ├── tokenizer_config.json
+    │   ├── label_config.json
+    │   └── model.onnx                 # 若缺失，需按下文步骤导出
+    └── risk_classifier_output_pku_zh/
+        ├── adapter_config.json
+        ├── adapter_model.safetensors
+        ├── tokenizer_config.json
+        ├── label_config.json
+        └── model.onnx                 # 若缺失，需按下文步骤导出
+```
+
 > `data/` 目录已加入 `.gitignore`，但 `data/samples/` 通过 `!data/samples/` 规则**强制纳入版本控制**。
 
 ## 快速开始
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/HouYaohui0603/ai-chat-safety.git
+git clone https://github.com/JasmineWA/ai-chat-safety.git
 cd ai-chat-safety
 
-# 2. 安装依赖
+# 2. 安装运行依赖
 pip install -r requirements.txt
 
-# 3. 配置环境变量（PowerShell）
+# 3. 从 Hugging Face 下载大文件，并放回项目默认目录
+# Hugging Face: https://huggingface.co/jasminewang427/ai-chat-safety
+# 需要确保项目内最终存在 FineTuning/datafiles 和 FineTuning/models
+
+# 4. 如果 FineTuning/models/*/model.onnx 缺失，再安装导出依赖
+pip install -r FineTuning/requirements-finetune.txt
+
+# 5. 生成输入侧 ONNX
+python FineTuning/export_onnx.py --task input --model_dir FineTuning/models/risk_classifier_input_safety_prompts
+
+# 6. 生成输出侧 ONNX
+python FineTuning/export_onnx.py --task output --model_dir FineTuning/models/risk_classifier_output_pku_zh
+
+# 7. 配置环境变量（PowerShell）
 $env:DEEPSEEK_API_KEY="你的 API Key"
 $env:DEEPSEEK_BASE_URL="https://api.deepseek.com"
 $env:DEEPSEEK_MODEL="deepseek-chat"
 
-# 4. 启动系统
+# 8. 启动系统
 python app.py
 ```
+
+如果 `FineTuning/models/risk_classifier_input_safety_prompts/model.onnx` 或 `FineTuning/models/risk_classifier_output_pku_zh/model.onnx` 缺失，系统仍可启动，但会回退到启发式检测，输入侧和输出侧的本地分类能力会明显下降。建议在首次运行前补齐这两个 ONNX 文件。
 
 启动后访问：
 - 聊天页面：http://127.0.0.1:5000/
